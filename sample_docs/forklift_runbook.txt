@@ -1,0 +1,23 @@
+HALDEN LOGISTICS - EQUIPMENT RUNBOOK: FORKLIFT FLEET (E-SERIES 2000)
+
+1. DAILY PRE-OPERATION INSPECTION
+Before starting any shift, the operator must complete the 5-point inspection:
+- Hydraulic fluid level must be within the crosshatched region on the dipstick.
+- Mast chains and lift cables must show no visible signs of slack or fraying.
+- Tire pressure for pneumatic models must be 6.5 bar (95 PSI).
+- Brake pedal travel must engage within the first 25mm of downward pressure.
+- Emergency power cutoff switch must be tested by pressing and resetting.
+
+2. BATTERY CHARGING PROTOCOL
+- Electric forklifts must only be charged in the ventilated Charging Bay (Zone B).
+- Do not opportunity-charge lithium-ion battery packs if temperature exceeds 45°C.
+- Lead-acid models require topping up with demineralized water every Friday afternoon.
+- Charging cables must be hung on wall brackets when not connected to avoid run-over damage.
+
+3. REPORTING BREAKDOWNS
+If any fault warning code appears on the digital dash (e.g. Error Code E-402: Inverter Overheat):
+- Park the forklift safely outside pedestrian walkways.
+- Lower the forks fully to the ground and set the parking brake.
+- Place the yellow "OUT OF SERVICE" tag on the steering wheel.
+- Report the issue immediately to Maintenance Lead at extension 408.
+

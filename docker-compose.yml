@@ -1,0 +1,42 @@
+# Docker Compose file to start both containers with a single command
+version: '3.8'
+
+services:
+  # Service 1: MongoDB container acting as our local document & vector search store
+  mongo:
+    image: mongo:6.0                             # Use official MongoDB version 6.0
+    container_name: halden-search-store          # Give the container a friendly name
+    restart: unless-stopped                      # Automatically restart if it stops unexpectedly
+    ports:
+      - "27017:27017"                            # Expose standard Mongo port to host machine
+    volumes:
+      - mongo-data:/data/db                      # Save database files to a persistent Docker volume so data is not lost on restart
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"] # Ping MongoDB to make sure it is actually ready
+      interval: 5s                               # Run health check every 5 seconds
+      timeout: 5s                                # Wait up to 5 seconds for a response
+      retries: 5                                 # Retry 5 times before marking unhealthy
+
+  # Service 2: Application container hosting both Express backend and built React frontend
+  app:
+    build:
+      context: .                                 # Look in the current folder for build context
+      dockerfile: Dockerfile                     # Use the project Dockerfile
+    container_name: halden-rag-app               # Name of the running application container
+    restart: unless-stopped                      # Keep running unless stopped manually
+    ports:
+      - "5000:5000"                              # Map port 5000 on container to port 5000 on your laptop
+    environment:
+      - PORT=5000                                # Port Express listens on inside the container
+      - MONGODB_URI=mongodb://mongo:27017/halden_rag # Connect to the 'mongo' service above using Docker internal DNS
+      - GROQ_API_KEY=${GROQ_API_KEY}             # Read your Groq API key from host .env file
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b} # Model name, defaults to openai/gpt-oss-120b
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-Xenova/all-MiniLM-L6-v2} # Model for local text embeddings
+    depends_on:
+      mongo:
+        condition: service_healthy               # Wait until MongoDB passes its healthcheck before starting app
+
+# Named volumes section
+volumes:
+  mongo-data:
+    driver: local                                # Store data on laptop disk so it survives restarts

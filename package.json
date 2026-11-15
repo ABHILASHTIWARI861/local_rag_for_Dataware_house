@@ -1,0 +1,12 @@
+{
+  "name": "halden-rag-assistant",
+  "version": "1.0.0",
+  "description": "Local RAG Assistant for Halden Logistics",
+  "private": true,
+  "scripts": {
+    "start": "docker-compose up --build",
+    "stop": "docker-compose down",
+    "test:eval": "node test-eval.js"
+  }
+}
+
